@@ -42,9 +42,14 @@ async def list_items(
         offset=items_filters.offset,
         requested_user=user,
     )
-    items_for_response = [
-        ItemForResponse.from_orm(item) for item in items
-    ]
+
+    items_for_response = []
+
+    for item in items:
+        if not item.image:
+            item.image = '/placeholder.png'
+        items_for_response.append(ItemForResponse.from_orm(item))
+
     return ListOfItemsInResponse(
         items=items_for_response,
         items_count=len(items),
@@ -85,6 +90,8 @@ async def create_new_item(
 async def retrieve_item_by_slug(
     item: Item = Depends(get_item_by_slug_from_path),
 ) -> ItemInResponse:
+    if not item.image:
+        item.image = '/placeholder.png'
     return ItemInResponse(item=ItemForResponse.from_orm(item))
 
 
