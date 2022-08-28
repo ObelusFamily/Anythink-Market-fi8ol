@@ -45,13 +45,12 @@ class Item extends React.Component {
       this.props.currentUser &&
       this.props.currentUser.username === this.props.item.seller.username;
 
-    let imageUrl = '/placeholder.png'
+    let imageUrl = "/placeholder.png";
     const itemImage = this.props.item.image;
 
-    if(itemImage && itemImage !== '') {
+    if (itemImage && itemImage !== "") {
       imageUrl = itemImage;
     }
-
     return (
       <div className="container page">
         <div className="text-dark">
